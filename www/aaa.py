@@ -9,3 +9,5 @@ s= Student("thr", 24, 99)
 # print(json.dumps(s, default=lambda s:s.__dict__))
 j = json.dumps(s, default=lambda s:s.__dict__)
 print(json.loads(j))
+
+print("test")
