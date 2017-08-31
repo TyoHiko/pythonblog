@@ -6,6 +6,8 @@ from aiohttp import web
 
 from apis import APIError
 
+# 程序执行流程：
+# web request - aiohttp middlewares - logger_factory - auth_factory - response_factory - RequestHandle - response_factory - web response
 def get(path):
     '''
     Define decorator @get('/path')
@@ -84,6 +86,7 @@ class RequestHandler(object):
         self._required_kw_args = get_required_kw_args(fn)
 
     async def __call__(self, request):
+        logging.info("**********RequestHandle ___call__ start ...**********")
         kw = None
         if self._has_var_kw_arg or self._has_named_kw_args or self._required_kw_args:
             if request.method == 'POST':
@@ -130,6 +133,7 @@ class RequestHandler(object):
                     return web.HTTPBadRequest('Missing argument: %s' % name)
         logging.info('call with args: %s' % str(kw))
         try:
+            fff = self._func
             r = await self._func(**kw)
             return r
         except APIError as e:
