@@ -1,0 +1,2 @@
+# pythonblog
+only a practice.
